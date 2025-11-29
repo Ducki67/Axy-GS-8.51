@@ -15,7 +15,7 @@ A season 8 gs which is mostly a skid from Volcano 8.51 but wtv...
 > - Fixed Playground respawns
 
 
-# Why this is gettint released / leaked?
+# Why this is getting released / leaked?
 So basically my friend `@lacigaziga2000_94020` | `id:1360174957446959164` on discord wanted to make a "FMod" type of S8 project and hiered me to Skid / moddify the  **Volcano 8.51 gs** for him.  He is a type of guy who cant code in **C++** so i helped him and he ALSO modded **Burlone's FMod launcher**  for his i said  this to him when He wanted me to add the logo and the design to it `"I dont care if u gonna get called as a Skidder or wtv IF ur server gets nuked i will Not help u grow that shit back up!!"` </br>
 
 Also he kept changing the logo and the design all the fucking time which pissed me off and yesterday (in Nov 28. 2025).  He wanned to rename the project to *`Project Ryxe`* (which he did 🤦‍♂️) obv its a very shitty name and he stole a R logo from google </br>
