@@ -18,6 +18,9 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>SKIDD!!</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>SKIDD!!</Filter>
+    </ClCompile>
     <ClCompile Include="sdk\SDK\FortniteGame_functions.cpp">
       <Filter>skd %28sdk%29</Filter>
     </ClCompile>
@@ -36,6 +39,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
+      <Filter>SKIDD!!</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>SKIDD!!</Filter>
+    </ClInclude>
+    <ClInclude Include="Offsets.h">
       <Filter>SKIDD!!</Filter>
     </ClInclude>
     <ClInclude Include="gaymode.h">

@@ -3,6 +3,14 @@
 #include <map>
 #include <vector>
 
+static bool SparseSlotAllocated(UE::TBitArray& Flags, int Index)
+{
+	auto Base = (uint8_t*)&Flags;
+	uint32_t* Secondary = *(uint32_t**)(Base + 16);
+	uint32_t* Bits = Secondary ? Secondary : (uint32_t*)Base;
+	return (Bits[Index >> 5] >> (Index & 31)) & 1;
+}
+
 struct LootRow
 {
 	UFortItemDefinition* ItemDefinition = nullptr;
@@ -24,6 +32,8 @@ int GetClipSize(UFortItemDefinition* ItemDef)
 			auto& RowMap = *(UE::TMap<FName, FFortRangedWeaponStats*>*)(__int64(DataTable) + 0x30);
 			for (int i = 0; i < RowMap.Pairs.Elements.Data.Num(); ++i)
 			{
+				if (!SparseSlotAllocated(RowMap.Pairs.Elements.AllocationFlags, i))
+					continue;
 				auto& ElementData = RowMap.Pairs.Elements.Data[i].ElementData;
 				if (ElementData.Value.Second)
 				{
@@ -116,6 +126,8 @@ void InitLooting()
 		auto& RowMap = *(UE::TMap<FName, FFortLootPackageData*>*)(__int64(LootPackagesDataTable) + 0x30);
 		for (int i = 0; i < RowMap.Pairs.Elements.Data.Num(); ++i)
 		{
+			if (!SparseSlotAllocated(RowMap.Pairs.Elements.AllocationFlags, i))
+				continue;
 			auto& CurrentRow = RowMap.Pairs.Elements.Data[i];
 			FName RowName = CurrentRow.ElementData.Value.First;
 			if (RowName.ComparisonIndex)

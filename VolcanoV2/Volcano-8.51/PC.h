@@ -285,7 +285,8 @@ void EnterAircraftHook(AFortPlayerControllerAthena* a1, unsigned __int64 a2)
 		LOG_("TEST: num safe zones locations {}", GetGameMode()->SafeZoneLocations.Num());
 
 		Aircraft->FlightInfo.FlightSpeed = 0.01f;
-		FVector Loc = GetGameMode()->SafeZoneLocations[4];
+		int ZoneCount = GetGameMode()->SafeZoneLocations.Num();
+		FVector Loc = ZoneCount > 0 ? GetGameMode()->SafeZoneLocations[ZoneCount > 4 ? 4 : ZoneCount - 1] : FVector{};
 		Loc.Z = 19000;
 		Aircraft->FlightInfo.FlightStartLocation = (FVector_NetQuantize100)Loc;
 
@@ -709,7 +710,8 @@ void ExitAircraftHook(AFortPlayerControllerAthena* a1)
 		if (Globals::bLategame)
 		{
 			LOG_("LATEGAME!!!!");
-			FVector Loc = GetGameMode()->SafeZoneLocations[4];
+			int ZoneCount = GetGameMode()->SafeZoneLocations.Num();
+			FVector Loc = ZoneCount > 0 ? GetGameMode()->SafeZoneLocations[ZoneCount > 4 ? 4 : ZoneCount - 1] : FVector{};
 			Loc.Z = 19000;
 			FRotator Rot = a1->GetControlRotation();
 			if (a1->Pawn)
@@ -718,6 +720,10 @@ void ExitAircraftHook(AFortPlayerControllerAthena* a1)
 				a1->Pawn->K2_TeleportTo(Loc, Rot);
 				((AFortPawn*)a1->Pawn)->SetShield(100);
 			}
+		}
+		else if (a1->Pawn)
+		{
+			((AFortPawn*)a1->Pawn)->SetShield(0);
 		}
 
 		return;

@@ -23,29 +23,40 @@ namespace Globals
 
     bool bNoMCP = false; // currently no func but yk skidda
 
-	bool BFontendPlaylistReader = false; // this is for Fast testing, way it works is simple: when the first player ques to like Arena in the backend the abceknd will send the data and sets up the gs with that palylist this is fast and easy testing.
+	bool bFontendPlaylistReader = false; // this is for Fast testing, way it works is simple: when the first player ques to like Arena in the backend the abceknd will send the data and sets up the gs with that palylist this is fast and easy testing.
 
 	bool bLategame = true;
 	bool bPlayground = false;
 	bool bSolo = false;
 	bool bOnShotLTM = false; // not done yet
 	bool bFloorIsLava = false; // not done yet
-	bool bArena = false;
+	bool bArenaSolo = false;
+	bool bArenaDuos = false;
 
+	
+	// game rules
+	// bool bEnableCheatCommands = true; //soon!!
 	bool bInfiniteAmmo = true;
 	bool bInfiniteMats = true;
+
+
+	auto Terrain = L"open Athena_Terrain";
+
 
 	/// playlist selector
 	std::string GetPlaylistName()
 	{
-		if (bArena)
+		if (bArenaSolo)
 			return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
+		if (bArenaDuos)
+			return "Playlist_ShowdownAlt_Duos.Playlist_ShowdownAlt_Duos";
 		if (bOnShotLTM)
 			return "Playlist_Low_Solo.Playlist_Low_Solo";
 		if (bFloorIsLava)
 			return "Playlist_Fill_Solo.Playlist_Fill_Solo";  // flloorislava solo
 		if (bLategame)
-			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			//return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
 			//return "Playlist_Vamp_Solo.Playlist_Vamp_Solo";// solo lategame with siphon playlist
 		else if (bPlayground)
 			return "Playlist_Playground.Playlist_Playground";

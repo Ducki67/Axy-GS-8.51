@@ -151,6 +151,7 @@
     <ClInclude Include="gaymode.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Looting.h" />
+    <ClInclude Include="Offsets.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PC.h" />
