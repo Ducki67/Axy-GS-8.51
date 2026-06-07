@@ -1,12 +1,5 @@
-# Main
-Discord: "@jyzo.",
-**STAR FOR MORE UPDATES**
-</br>
-**PLEASE NOTE: THIS SOURCE IS GONNA BE RARELY UPDATED**
-</br>
-
 # Features
-KURV@!!
+
 
 ### Farming
   - [x] Proper
@@ -52,6 +45,19 @@ KURV@!!
   - [x] Server Starting
   - [x] server up
   - [x] match has started 
+
+--- 
+## Planned features:
+maybe 1 day I come back to this gs and do all of it..
+
+- arena
+- floor is lava
+- one shot
+- commands
+- gui (dont ask why)
+- fix mcp
+- fix lategame bus freeze bug (maybe)
+
  
 # Credits
 *Dumped SDK with*: [Dumper-7](https://github.com/Encryqed/Dumper-7)
