@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;VOLCANO851_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>inclueds;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -152,18 +152,32 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Looting.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="Teams.h" />
     <ClInclude Include="ue.h" />
     <ClInclude Include="Vehicles.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="sdk\SDK\Basic.cpp" />
-    <ClCompile Include="sdk\SDK\CoreUObject_functions.cpp" />
-    <ClCompile Include="sdk\SDK\Engine_functions.cpp" />
-    <ClCompile Include="sdk\SDK\FortniteGame_functions.cpp" />
-    <ClCompile Include="sdk\SDK\GameplayAbilities_functions.cpp" />
+    <ClCompile Include="sdk\SDK\Basic.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\SDK\CoreUObject_functions.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\SDK\Engine_functions.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\SDK\FortniteGame_functions.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\SDK\GameplayAbilities_functions.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

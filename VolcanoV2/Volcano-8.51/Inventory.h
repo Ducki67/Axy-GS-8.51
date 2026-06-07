@@ -208,7 +208,8 @@ void sub_7FF6B9B17A60(AFortWeapon* a1, unsigned int a2)
 			{
 				if (auto AmmoDef = a1->WeaponData->GetAmmoWorldItemDefinition_BP())
 				{
-					Inventory::RemoveItem(PC, AmmoDef, a2);
+					if (!Globals::bInfiniteAmmo)
+						Inventory::RemoveItem(PC, AmmoDef, a2);
 				}
 
 				if (auto Entry = Inventory::FindItemEntry(PC, a1->WeaponData))

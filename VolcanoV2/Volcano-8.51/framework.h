@@ -23,21 +23,30 @@ namespace Globals
 
     bool bNoMCP = false; // currently no func but yk skidda
 
-	bool bLategame = false;
-	bool bPlayground = true;
+	bool BFontendPlaylistReader = false; // this is for Fast testing, way it works is simple: when the first player ques to like Arena in the backend the abceknd will send the data and sets up the gs with that palylist this is fast and easy testing.
+
+	bool bLategame = true;
+	bool bPlayground = false;
 	bool bSolo = false;
 	bool bOnShotLTM = false; // not done yet
 	bool bFloorIsLava = false; // not done yet
+	bool bArena = false;
+
+	bool bInfiniteAmmo = true;
+	bool bInfiniteMats = true;
 
 	/// playlist selector
 	std::string GetPlaylistName()
 	{
+		if (bArena)
+			return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
 		if (bOnShotLTM)
 			return "Playlist_Low_Solo.Playlist_Low_Solo";
 		if (bFloorIsLava)
 			return "Playlist_Fill_Solo.Playlist_Fill_Solo";  // flloorislava solo
 		if (bLategame)
-			return "Playlist_DefaultSolo.Playlist_DefaultSolo";// solo lategame
+			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			//return "Playlist_Vamp_Solo.Playlist_Vamp_Solo";// solo lategame with siphon playlist
 		else if (bPlayground)
 			return "Playlist_Playground.Playlist_Playground";
 		else if (bSolo)
@@ -143,6 +152,7 @@ __int64 NoMcp()
 {
 	if(__int64(_ReturnAddress()) - __int64(GetModuleHandleW(0)) != 0x16ddffc)
 		LOG_("NoMcp retaddr: 0x{:x}", __int64(_ReturnAddress()) - __int64(GetModuleHandleW(0)));
+		LOG_("NoMCP YOOO SMHING IS COOKING HERE.")
 
 	return 1; //NoMcp
 }

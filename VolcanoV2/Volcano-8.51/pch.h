@@ -1,0 +1,9 @@
+#pragma once
+#include <Windows.h>
+#include <cstdio>
+#include <format>
+#include <iostream>
+#include <intrin.h>
+#include <fstream>
+#include "ue.h"
+#include "minhook/MinHook.h"

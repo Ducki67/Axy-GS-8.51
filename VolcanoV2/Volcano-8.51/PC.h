@@ -158,7 +158,7 @@ void ServerCreateBuildingActorHook(AFortPlayerControllerAthena* PC, FCreateBuild
 			NewBuilding->TeamIndex = ((AFortPlayerStateAthena*)PC->PlayerState)->TeamIndex;
 			NewBuilding->OnRep_Team();
 
-			if(!PC->bBuildFree)
+			if(!PC->bBuildFree && !Globals::bInfiniteMats)
 				Inventory::RemoveItem(PC, GetFortKismet()->K2_GetResourceItemDefinition(NewBuilding->ResourceType), 10);
 		}
 	}

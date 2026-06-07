@@ -9,6 +9,12 @@
   - [ ] More client sided shit that makes less lag
 ### Proper Teams
   - [ ] Squads + Rebooting
+### Mutators (framework.h Globals)
+  - [x] Infinite Ammo (`bInfiniteAmmo`)
+  - [x] Infinite Mats (`bInfiniteMats`)
+### Arena
+  - [x] Playlist + `bArena` toggle (Hype tracked backend-side)
+  - [ ] In-game tested
 ### Different ltms support
   - [x] Playground (gaymode)
   - [ ] Onshot
@@ -57,6 +63,7 @@ maybe 1 day I come back to this gs and do all of it..
 - gui (dont ask why)
 - fix mcp
 - fix lategame bus freeze bug (maybe)
+- frontend playlist reader (backend sends the playlist to the gs for fast testing) + JS example for other backends
 
  
 # Credits
