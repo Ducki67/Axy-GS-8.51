@@ -28,8 +28,8 @@ namespace Globals
 	bool bLategame = false;
 	bool bPlayground = false;
 	bool bSolo = false;
-	bool bOnShotLTM = false; // not done yet
-	bool bFloorIsLava = true; // not done yet
+	bool bOnShotLTM = true; // not done yet
+	bool bFloorIsLava = false; // not done yet
 	bool bArenaSolo = false;
 	bool bArenaDuos = false;
 	bool bCreative = false; //uhm soon
