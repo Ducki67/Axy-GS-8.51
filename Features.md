@@ -19,9 +19,10 @@
   - [x] cheat sethealth/setshield/giveitem/tp/spawnactor/infiniteammo/infinitemats
   - [ ] spawnbot (test kill points)
 ### Different ltms support
+  - [x] Arena (duos, solo,  almost done tho)
   - [x] Playground (gaymode)
   - [ ] Onshot
-  - [ ] FloorIsLava
+  - [x] FloorIsLava
   - [ ] Creative
 ### Respawning
   - [x] Proper
@@ -54,6 +55,10 @@
   - [x] Server Starting
   - [x] server up
   - [x] match has started 
+
+### Commands
+  - [ ] Proper
+  - [ ] uh
 
 --- 
 ## Planned features:
