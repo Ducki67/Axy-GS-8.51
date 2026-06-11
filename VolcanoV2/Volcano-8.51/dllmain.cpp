@@ -10,6 +10,7 @@
 #include "backend.h"
 
 #include "discord.h"
+#include "Commands.h"
 
 DWORD Main(LPVOID)
 {
@@ -95,6 +96,7 @@ DWORD Main(LPVOID)
     HOKSREAL();
     InitPawnHooks();
     InitVehicleHooks();
+    InitCommands();
 
     
 

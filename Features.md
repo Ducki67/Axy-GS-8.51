@@ -14,7 +14,10 @@
   - [x] Infinite Mats (`bInfiniteMats`)
 ### Arena
   - [x] Playlist + `bArena` toggle (Hype tracked backend-side)
-  - [ ] In-game tested
+  - [x] In-game tested
+### Commands (ServerCheat)
+  - [x] cheat sethealth/setshield/giveitem/tp/spawnactor/infiniteammo/infinitemats
+  - [ ] spawnbot (test kill points)
 ### Different ltms support
   - [x] Playground (gaymode)
   - [ ] Onshot

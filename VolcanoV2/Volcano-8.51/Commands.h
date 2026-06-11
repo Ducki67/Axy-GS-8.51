@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <cstdlib>
+#include <cctype>
 
 static void StepCompiledIn(FFrame* Stack, void* Result)
 {
@@ -125,6 +126,6 @@ void InitCommands()
 	}
 
 	auto ExecPtr = (void**)(__int64(Fn) + 0xB8);
-	*ExecPtr = ServerCheatHook;
+	*ExecPtr = (void*)ServerCheatHook;
 	LOG_("commands hooked via ServerCheat");
 }

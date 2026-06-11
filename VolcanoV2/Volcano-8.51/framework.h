@@ -32,7 +32,7 @@ namespace Globals
 	bool bFloorIsLava = false; // not done yet
 	bool bArenaSolo = false;
 	bool bArenaDuos = false;
-
+	bool bCreative = false; //uhm soon
 	
 	// game rules
 	// bool bEnableCheatCommands = true; //soon!!
@@ -40,7 +40,7 @@ namespace Globals
 	bool bInfiniteMats = true;
 
 
-	auto Terrain = L"open Athena_Terrain";
+	auto Terrain = L"open Athena_Terrain"; // dont toruch this plz
 
 
 	/// playlist selector

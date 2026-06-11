@@ -50,6 +50,9 @@
     <ClInclude Include="gaymode.h">
       <Filter>HOOKS</Filter>
     </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>HOOKS</Filter>
+    </ClInclude>
     <ClInclude Include="Abilites.h">
       <Filter>GameServer</Filter>
     </ClInclude>

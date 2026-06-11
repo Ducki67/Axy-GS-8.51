@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Abilites.h" />
     <ClInclude Include="backend.h" />
+    <ClInclude Include="Commands.h" />
     <ClInclude Include="discord.h" />
     <ClInclude Include="Farming.h" />
     <ClInclude Include="framework.h" />
