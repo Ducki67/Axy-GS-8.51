@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Abilites.h"
 #include "Inventory.h"
+#include "backend.h"
 
 
 #include <windows.h>
@@ -555,6 +556,8 @@ void ClientOnPawnDiedHook(AFortPlayerControllerZone* DeadPlayer, FFortPlayerDeat
 	{
 		if (!DeadPawn->IsDBNO())
 		{
+			Backend::ReportArenaPlacement(DeadPlayerState->GetPlayerName().ToString(), GetGameState()->PlayersLeft);
+
 			if (DeadPlayer->WorldInventory)
 			{
 				for (int i = 0; i < DeadPlayer->WorldInventory->Inventory.ItemInstances.Num(); i++)

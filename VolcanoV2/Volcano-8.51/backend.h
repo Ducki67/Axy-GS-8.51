@@ -3,6 +3,7 @@
 #define CURL_STATICLIB
 #include <curl/curl.h>
 #include <string>
+#include "framework.h"
 
 enum EReqType
 {
@@ -43,30 +44,26 @@ public:
 
 	FORCEINLINE bool Request(EReqType RequestType, const std::string& Endpoint, const std::string& Body, std::string* OutResponse = nullptr)
 	{
-		curl_easy_setopt(curl, CURLOPT_URL, Endpoint);
+		curl_easy_setopt(curl, CURLOPT_URL, Endpoint.c_str());
 		if (RequestType == EReqType_DELETE)
 		{
 			curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
 		}
 
-		if (!Body.empty() || Body != "")
+		if (!Body.empty())
 		{
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, Body);
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, Body.c_str());
 		}
 
 		std::string callback;
-		if (OutResponse)
-		{
-			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Write_Callback);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, callback);
-		}
-		
-		CURLcode Res = curl_easy_perform(curl);
-		if (Res != CURLE_OK)
-			return false;
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Write_Callback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &callback);
 
+		CURLcode Res = curl_easy_perform(curl);
 		if (OutResponse)
 			*OutResponse = callback;
+
+		return Res == CURLE_OK;
 	}
 };
 
@@ -78,6 +75,39 @@ namespace Backend
 	{
 		if (!api)
 			api = new API();
+	}
+
+	static int ArenaPlacementPoints(int Placement)
+	{
+		if (Globals::bArenaDuos)
+		{
+			if (Placement <= 3) return 7;
+			if (Placement <= 7) return 5;
+			if (Placement <= 12) return 3;
+			return 0;
+		}
+		if (Placement <= 5) return 7;
+		if (Placement <= 15) return 5;
+		if (Placement <= 25) return 3;
+		return 0;
+	}
+
+	void ReportArenaPlacement(const std::string& Username, int Placement)
+	{
+		if (!api || (!Globals::bArenaSolo && !Globals::bArenaDuos) || Username.empty() || Placement < 2)
+			return;
+
+		int Points = ArenaPlacementPoints(Placement);
+		if (Points <= 0)
+			return;
+
+		std::string Encoded;
+		for (char c : Username)
+			Encoded += (c == ' ') ? std::string("%20") : std::string(1, c);
+
+		std::string Url = Globals::BackendHost + "/volcano/api/vbucks?apikey=" + Globals::VbucksApiKey + "&username=" + Encoded + "&reason=hype&amount=" + std::to_string(Points);
+		api->Request(EReqType_GET, Url, "");
+		LOG_("arena placement {} -> +{} hype for {}", Placement, Points, Username);
 	}
 
 	// You must call Backend::Setup() before doing anything

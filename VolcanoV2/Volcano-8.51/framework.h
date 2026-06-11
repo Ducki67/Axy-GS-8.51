@@ -25,11 +25,11 @@ namespace Globals
 
 	bool bFontendPlaylistReader = false; // this is for Fast testing, way it works is simple: when the first player ques to like Arena in the backend the abceknd will send the data and sets up the gs with that palylist this is fast and easy testing.
 
-	bool bLategame = true;
+	bool bLategame = false;
 	bool bPlayground = false;
 	bool bSolo = false;
 	bool bOnShotLTM = false; // not done yet
-	bool bFloorIsLava = false; // not done yet
+	bool bFloorIsLava = true; // not done yet
 	bool bArenaSolo = false;
 	bool bArenaDuos = false;
 	bool bCreative = false; //uhm soon
@@ -38,6 +38,9 @@ namespace Globals
 	// bool bEnableCheatCommands = true; //soon!!
 	bool bInfiniteAmmo = true;
 	bool bInfiniteMats = true;
+
+	std::string BackendHost = "http://127.0.0.1:3551";
+	std::string VbucksApiKey = "CHANGEME";
 
 
 	auto Terrain = L"open Athena_Terrain"; // dont toruch this plz
@@ -55,11 +58,13 @@ namespace Globals
 		if (bFloorIsLava)
 			return "Playlist_Fill_Solo.Playlist_Fill_Solo";  // flloorislava solo
 		if (bLategame)
-			//return "Playlist_DefaultSolo.Playlist_DefaultSolo";
-			return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
-			//return "Playlist_Vamp_Solo.Playlist_Vamp_Solo";// solo lategame with siphon playlist
+			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			//return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
+			//return "Playlist_Vamp_Solo.Playlist_Vamp_Solo";// solo lategame with siphon playlist // CRASHES!!
 		else if (bPlayground)
 			return "Playlist_Playground.Playlist_Playground";
+		else if (bCreative)
+			return "Playlist_PlaygroundV2.Playlist_PlaygroundV2";
 		else if (bSolo)
 			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
 		else

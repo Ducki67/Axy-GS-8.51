@@ -1,12 +1,15 @@
 #pragma once
 #include "framework.h"
 #include "Inventory.h"
-#include "Offsets.h"
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <cstdlib>
 #include <cctype>
+
+class FFrame;
+static void (*FrameStep)(FFrame*, SDK::UObject*, void* const) = decltype(FrameStep)(GetOffsetBRUH(0x1e83f60));
+static void (*FrameStepExplicit)(FFrame*, void* const, SDK::UField*) = decltype(FrameStepExplicit)(GetOffsetBRUH(0x1e83f90));
 
 static void StepCompiledIn(FFrame* Stack, void* Result)
 {
@@ -15,7 +18,7 @@ static void StepCompiledIn(FFrame* Stack, void* Result)
 	if (Code)
 	{
 		SDK::UObject* Obj = *(SDK::UObject**)(Base + 0x18);
-		Step(Stack, Obj, Result);
+		FrameStep(Stack, Obj, Result);
 	}
 	else
 	{
@@ -24,7 +27,7 @@ static void StepCompiledIn(FFrame* Stack, void* Result)
 		if (Property)
 		{
 			*Chain = *(void**)((uint8_t*)Property + 0x28);
-			StepExplicitProperty(Stack, Result, (SDK::UField*)Property);
+			FrameStepExplicit(Stack, Result, (SDK::UField*)Property);
 		}
 	}
 }
@@ -99,6 +102,10 @@ void RunCommand(AFortPlayerControllerAthena* PC, const std::string& Full)
 	{
 		Globals::bInfiniteMats = !Globals::bInfiniteMats;
 		LOG_("cmd: infinitemats {}", Globals::bInfiniteMats);
+	}
+	else if (Cmd == "help")
+	{
+		LOG_("============ Commands ============ \n\n cheat infinitemats \n cheat infiniteammo \n cheat sethealth \n cheat spawnactor \n giveitem id n \n cheat tp x y z \n cheat setshield")
 	}
 	else
 	{
