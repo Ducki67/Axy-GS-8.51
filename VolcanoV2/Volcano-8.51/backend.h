@@ -117,6 +117,7 @@ namespace Backend
 
 		std::string response;
 		api->Request(EReqType_GET, Globals::BackendHost + "/gs/playlist", "", &response);
+		LOG_("gs/playlist raw: {}", response);
 
 		auto key = response.find("\"playlist\"");
 		if (key == std::string::npos)

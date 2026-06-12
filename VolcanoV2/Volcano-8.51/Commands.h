@@ -7,31 +7,6 @@
 #include <cstdlib>
 #include <cctype>
 
-class FFrame;
-static void (*FrameStep)(FFrame*, SDK::UObject*, void* const) = decltype(FrameStep)(GetOffsetBRUH(0x1e83f60));
-static void (*FrameStepExplicit)(FFrame*, void* const, SDK::UField*) = decltype(FrameStepExplicit)(GetOffsetBRUH(0x1e83f90));
-
-static void StepCompiledIn(FFrame* Stack, void* Result)
-{
-	auto Base = (uint8_t*)Stack;
-	uint8_t* Code = *(uint8_t**)(Base + 0x20);
-	if (Code)
-	{
-		SDK::UObject* Obj = *(SDK::UObject**)(Base + 0x18);
-		FrameStep(Stack, Obj, Result);
-	}
-	else
-	{
-		void** Chain = (void**)(Base + 0x68);
-		void* Property = *Chain;
-		if (Property)
-		{
-			*Chain = *(void**)((uint8_t*)Property + 0x28);
-			FrameStepExplicit(Stack, Result, (SDK::UField*)Property);
-		}
-	}
-}
-
 static std::vector<std::string> SplitArgs(const std::string& Input)
 {
 	std::vector<std::string> Out;
@@ -103,6 +78,18 @@ void RunCommand(AFortPlayerControllerAthena* PC, const std::string& Full)
 		Globals::bInfiniteMats = !Globals::bInfiniteMats;
 		LOG_("cmd: infinitemats {}", Globals::bInfiniteMats);
 	}
+	else if (Cmd == "startaircraft" || Cmd == "startbus")
+	{
+		GetGameState()->WarmupCountdownEndTime = GetStatics()->GetTimeSeconds(GetWorld());
+		GetGameMode()->WarmupCountdownDuration = 0.f;
+		LOG_("cmd: startaircraft");
+	}
+	else if (Cmd == "heal" && Pawn)
+	{
+		Pawn->SetHealth(100.f);
+		Pawn->SetShield(100.f);
+		LOG_("cmd: heal");
+	}
 	else if (Cmd == "help")
 	{
 		LOG_("============ Commands ============ \n\n cheat infinitemats \n cheat infiniteammo \n cheat sethealth \n cheat spawnactor \n giveitem id n \n cheat tp x y z \n cheat setshield")
@@ -115,12 +102,14 @@ void RunCommand(AFortPlayerControllerAthena* PC, const std::string& Full)
 
 void ServerCheatHook(SDK::UObject* Context, void* Stack, void* Result)
 {
-	FString Msg{};
-	StepCompiledIn((FFrame*)Stack, &Msg);
-
+	uint8_t* Locals = *(uint8_t**)((uint8_t*)Stack + 0x28);
 	auto PC = (AFortPlayerControllerAthena*)Context;
-	if (PC)
-		RunCommand(PC, Msg.ToString());
+	if (PC && Locals)
+	{
+		FString* Msg = (FString*)Locals;
+		LOG_("cheat received: {}", Msg->ToString());
+		RunCommand(PC, Msg->ToString());
+	}
 }
 
 void InitCommands()
