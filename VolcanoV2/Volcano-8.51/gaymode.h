@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "Teams.h"
 #include "Looting.h"
+#include "backend.h"
 
 bool (*ReadyToStartMatchOG)(void*);
 bool ReadyToStartMatchHook(AFortGameModeAthena* a1)
@@ -9,6 +10,24 @@ bool ReadyToStartMatchHook(AFortGameModeAthena* a1)
 	static bool bPLAYLIST = false;
 	if (!bPLAYLIST)
 	{
+		if (Globals::bFontendPlaylistReader)
+		{
+			static float LastPoll = -10.f;
+			float Now = GetStatics()->GetTimeSeconds(GetWorld());
+			if (Now - LastPoll < 2.f)
+				return false;
+			LastPoll = Now;
+
+			std::string Fetched = Backend::GetQueuedPlaylist();
+			if (Fetched.empty())
+			{
+				LOG_("FrontendPlaylistReader: waiting for a player to queue in the backend...");
+				return false;
+			}
+			Globals::PlaylistName = Fetched + "." + Fetched;
+			LOG_("FrontendPlaylistReader: using backend playlist {}", Globals::PlaylistName);
+		}
+
 		bPLAYLIST = true;
 
 		auto playlist = UObject::FindObject<UFortPlaylistAthena>(Globals::PlaylistName);

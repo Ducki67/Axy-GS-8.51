@@ -110,6 +110,35 @@ namespace Backend
 		LOG_("arena placement {} -> +{} hype for {}", Placement, Points, Username);
 	}
 
+	std::string GetQueuedPlaylist()
+	{
+		if (!api)
+			return "";
+
+		std::string response;
+		api->Request(EReqType_GET, Globals::BackendHost + "/gs/playlist", "", &response);
+
+		auto key = response.find("\"playlist\"");
+		if (key == std::string::npos)
+			return "";
+		auto q1 = response.find('"', response.find(':', key));
+		if (q1 == std::string::npos)
+			return "";
+		auto q2 = response.find('"', q1 + 1);
+		if (q2 == std::string::npos || q2 <= q1 + 1)
+			return "";
+
+		std::string Raw = response.substr(q1 + 1, q2 - q1 - 1);
+		if (Raw.find("showdownalt_duos") != std::string::npos) return "Playlist_ShowdownAlt_Duos";
+		if (Raw.find("showdownalt_solo") != std::string::npos) return "Playlist_ShowdownAlt_Solo";
+		if (Raw.find("defaultduo") != std::string::npos) return "Playlist_DefaultDuo";
+		if (Raw.find("defaultsquad") != std::string::npos) return "Playlist_DefaultSquad";
+		if (Raw.find("playground") != std::string::npos) return "Playlist_Playground";
+		if (Raw.find("50v50") != std::string::npos) return "Playlist_50v50";
+		if (Raw.find("solo") != std::string::npos) return "Playlist_DefaultSolo";
+		return Raw;
+	}
+
 	// You must call Backend::Setup() before doing anything
 	void Example()
 	{

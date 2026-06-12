@@ -125,14 +125,15 @@ void ServerCheatHook(SDK::UObject* Context, void* Stack, void* Result)
 
 void InitCommands()
 {
-	auto Fn = UObject::FindObject<UFunction>("Function FortniteGame.FortPlayerController.ServerCheat");
+	auto Fn = UObject::FindObjectFast<UFunction>("ServerCheat");
 	if (!Fn)
 	{
 		LOG_("ServerCheat UFunction not found, commands disabled");
 		return;
 	}
 
-	auto ExecPtr = (void**)(__int64(Fn) + 0xB8);
+	auto ExecPtr = (void**)(__int64(Fn) + 0xC0);
+	LOG_("ServerCheat Func @0xC0 = 0x{:x}", __int64(*ExecPtr) - __int64(GetModuleHandleW(0)));
 	*ExecPtr = (void*)ServerCheatHook;
 	LOG_("commands hooked via ServerCheat");
 }
