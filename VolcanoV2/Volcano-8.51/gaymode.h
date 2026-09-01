@@ -33,7 +33,7 @@ bool ReadyToStartMatchHook(AFortGameModeAthena* a1)
 		auto playlist = UObject::FindObject<UFortPlaylistAthena>(Globals::PlaylistName);
 		if (playlist)
 		{
-			if (Globals::bPlayground)
+			if (Globals::GameMode == Globals::EGameMode::Playground)
 			{
 				playlist->bRespawnInAir = true;
 				playlist->RespawnType = EAthenaRespawnType::InfiniteRespawn;

@@ -88,7 +88,7 @@ void ServerReadyToStartMatchHook(AFortPlayerController* PC)
 		Inventory::AddItem(PC, Grap, 1, 10);*/
 		
 		//Inventory::AddItem(PC, shells, 30);
-		if (Globals::bPlayground)
+		if (Globals::GameMode == Globals::EGameMode::Playground)
 		{
 			PC->bInfiniteAmmo = true;
 			PC->bBuildFree = true;
@@ -278,7 +278,7 @@ void EnterAircraftHook(AFortPlayerControllerAthena* a1, unsigned __int64 a2)
 	}*/
 
 	static bool aa1WOWRACIST = false;
-	if (!aa1WOWRACIST && Globals::bLategame)
+	if (!aa1WOWRACIST && Globals::GameMode == Globals::EGameMode::Lategame)
 	{
 		aa1WOWRACIST = true;
 		auto Aircraft = GetGameState()->GetAircraft(0);
@@ -325,7 +325,7 @@ void EnterAircraftHook(AFortPlayerControllerAthena* a1, unsigned __int64 a2)
 		Inventory::Update(a1);
 
 		// LG
-		if (Globals::bLategame)
+		if (Globals::GameMode == Globals::EGameMode::Lategame)
 		{
 			if (!a1 || !a1->WorldInventory)
 				return;
@@ -682,7 +682,7 @@ void ServerAttemptInteractHook(UFortControllerComponent_Interaction* Comp, AActo
 //void (*ServerAttemptAircraftJumpOG)(void*, FRotator);
 //void ServerAttemptAircraftJump(AFortPlayerControllerAthena* PC, FRotator& a2)
 //{
-//	if (Globals::bLategame)
+//	if (Globals::GameMode == EGameMode::Lategame)
 //	{
 //		LOG_("LATEGAME JUMP");
 //		FVector Loc = GetGameMode()->SafeZoneLocations[4];
@@ -710,7 +710,7 @@ void ExitAircraftHook(AFortPlayerControllerAthena* a1)
 	{
 		ExitAircraft(a1);
 
-		if (Globals::bLategame)
+		if (Globals::GameMode == Globals::EGameMode::Lategame)
 		{
 			LOG_("LATEGAME!!!!");
 			int ZoneCount = GetGameMode()->SafeZoneLocations.Num();

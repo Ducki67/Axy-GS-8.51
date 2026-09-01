@@ -79,7 +79,7 @@ namespace Backend
 
 	static int ArenaPlacementPoints(int Placement)
 	{
-		if (Globals::bArenaDuos)
+		if (Globals::GameMode == Globals::EGameMode::ArenaDuos)
 		{
 			if (Placement <= 3) return 7;
 			if (Placement <= 7) return 5;
@@ -94,7 +94,7 @@ namespace Backend
 
 	void ReportArenaPlacement(const std::string& Username, int Placement)
 	{
-		if (!api || (!Globals::bArenaSolo && !Globals::bArenaDuos) || Username.empty() || Placement < 2)
+		if (!api || (Globals::GameMode != Globals::EGameMode::ArenaSolo && Globals::GameMode != Globals::EGameMode::ArenaDuos) || Username.empty() || Placement < 2)
 			return;
 
 		int Points = ArenaPlacementPoints(Placement);

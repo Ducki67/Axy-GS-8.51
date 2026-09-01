@@ -21,21 +21,25 @@ namespace Globals
 {
 
 
+    enum class EGameMode : uint8_t
+    {
+        ArenaSolo,
+        ArenaDuos,
+        Creative,
+        FloorIsLava,
+        Lategame,
+        OnShotLTM,
+        Playground,
+        Solo,
+        Count
+    };
+
+    inline EGameMode GameMode = EGameMode::Solo;
+
     bool bNoMCP = false; // currently no func but yk skidda
 
 	bool bFontendPlaylistReader = false; // this is for Fast testing, way it works is simple: when the first player ques to like Arena in the backend the abceknd will send the data and sets up the gs with that palylist this is fast and easy testing.
 
-	bool bLategame = false;
-	bool bPlayground = false;
-	bool bSolo = false;
-	bool bOnShotLTM = false; // not done yet
-	bool bFloorIsLava = false; // not done yet
-	bool bArenaSolo = true;
-	bool bArenaDuos = false;
-	bool bCreative = false; //uhm soon
-	
-	// game rules
-	// bool bEnableCheatCommands = true; //soon!!
 	bool bInfiniteAmmo = true;
 	bool bInfiniteMats = true;
 
@@ -49,27 +53,18 @@ namespace Globals
 	/// playlist selector
 	std::string GetPlaylistName()
 	{
-		if (bArenaSolo)
-			return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
-		if (bArenaDuos)
-			return "Playlist_ShowdownAlt_Duos.Playlist_ShowdownAlt_Duos";
-		if (bOnShotLTM)
-			return "Playlist_Low_Solo.Playlist_Low_Solo";
-		if (bFloorIsLava)
-			return "Playlist_Fill_Solo.Playlist_Fill_Solo";  // flloorislava solo
-		if (bLategame)
-			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
-			//return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
-			//return "Playlist_Vamp_Solo.Playlist_Vamp_Solo";// solo lategame with siphon playlist // CRASHES!!
-		else if (bPlayground)
-			return "Playlist_Playground.Playlist_Playground";
-		else if (bCreative)
-			return "Playlist_PlaygroundV2.Playlist_PlaygroundV2";
-		else if (bSolo)
-			return "Playlist_DefaultSolo.Playlist_DefaultSolo";
-		else
-		// default fallback
-		return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+		switch (GameMode)
+		{
+			case EGameMode::ArenaSolo: return "Playlist_ShowdownAlt_Solo.Playlist_ShowdownAlt_Solo";
+			case EGameMode::ArenaDuos: return "Playlist_ShowdownAlt_Duos.Playlist_ShowdownAlt_Duos";
+			case EGameMode::OnShotLTM: return "Playlist_Low_Solo.Playlist_Low_Solo";
+			case EGameMode::FloorIsLava: return "Playlist_Fill_Solo.Playlist_Fill_Solo";
+			case EGameMode::Lategame: return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			case EGameMode::Playground: return "Playlist_Playground.Playlist_Playground";
+			case EGameMode::Creative: return "Playlist_PlaygroundV2.Playlist_PlaygroundV2";
+			case EGameMode::Solo: return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+			default: return "Playlist_DefaultSolo.Playlist_DefaultSolo";
+		}
 	}
 
 	// Optional convenience variable
@@ -460,7 +455,7 @@ void (*SetMegaStormStuffidkREALOG)(AFortGameModeAthena*, int);
 void SetMegaStormStuffHOOK(AFortGameModeAthena* a1, int a2)
 {
 	LOG_("a2: {}", a2);
-	if (!Globals::bLategame)
+	if (Globals::GameMode != Globals::EGameMode::Lategame)
 		return SetMegaStormStuffidkREALOG(a1, a2);
 
 	SetMegaStormStuffidkREALOG(a1, a2);
